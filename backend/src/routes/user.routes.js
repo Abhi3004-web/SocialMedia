@@ -13,7 +13,5 @@ router.post("/login", loginUserController);
 router.post("/logout", logoutUserController);
 router.post("/verify-email", verifyEmailController);
 router.post("/verify-email/:token", verifyEmailController);
-router.get("/verify-email", verifyEmailController);
-router.get("/verify-email/:token", verifyEmailController);
 
 export default router;

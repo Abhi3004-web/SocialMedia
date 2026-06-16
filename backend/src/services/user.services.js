@@ -1,7 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
+import { sendVerificationEmail } from "../utils/sendEmail.js";
+
 
 const sanitizeUser = (user) => {
   const safeUser = user.toObject ? user.toObject() : { ...user };
@@ -49,6 +53,8 @@ export const createUser = async ({ username, email, password, bio = "" }) => {
     bio,
     verificationToken,
   });
+
+  await sendVerificationEmail(user.email, verificationToken);
 
   return {
     user: sanitizeUser(user),

@@ -49,6 +49,7 @@ export const registerUser = async (req, res) => {
       "Email is already registered",
       "Username is already taken",
     ];
+    console.error("Registration Error:", error);
 
     const statusCode = validationErrors.includes(error.message) ? 400 : 500;
 
