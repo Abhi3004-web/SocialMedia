@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
+import path from "path";
+import { fileURLToPath } from "url";
 import express from "express";
 import { connectDB } from "./src/config/db.js";
 import userRoutes from "./src/routes/user.routes.js";
@@ -8,10 +10,17 @@ const app = express();
 
 app.use(express.json());
 app.use("/api/users", userRoutes);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.get("/", (req, res) => {
   res.send("Hello first Introduction");
 });
+
+app.use("/uploads",express.static(
+    path.join(__dirname, "uploads")
+  )
+);
 
 app.use((error, req, res, next) => {
   if (error instanceof SyntaxError && error.status === 400 && "body" in error) {

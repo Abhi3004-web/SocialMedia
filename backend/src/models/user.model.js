@@ -59,6 +59,12 @@ const UserSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    blockedUsers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     verificationToken: {
       type: String,
       default: null,
@@ -67,6 +73,16 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    linkedAccounts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     timestamps: true,
