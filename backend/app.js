@@ -3,13 +3,16 @@ dotenv.config();
 import path from "path";
 import { fileURLToPath } from "url";
 import express from "express";
+import multer from "multer";
 import { connectDB } from "./src/config/db.js";
 import userRoutes from "./src/routes/user.routes.js";
+import postRoutes from "./src/routes/post.routes.js";
 
 const app = express();
 
 app.use(express.json());
 app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -27,6 +30,15 @@ app.use((error, req, res, next) => {
     return res.status(400).json({
       success: false,
       message: "Invalid JSON body. Check your request body syntax.",
+    });
+  }
+
+  // Multer errors
+  if (error instanceof multer.MulterError) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+      field: error.field,
     });
   }
 

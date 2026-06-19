@@ -1,46 +1,74 @@
 import multer from "multer";
 import path from "path";
+import fs from "fs";
 
-const storage = multer.diskStorage({
+// Create folder if not exists
+const createFolder = (folderPath) => {
+  if (!fs.existsSync(folderPath)) {
+    fs.mkdirSync(folderPath, { recursive: true });
+  }
+};
 
+const avatarStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    const folder = "uploads/avatars";
+    createFolder(folder);
+    cb(null, folder);
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `avatar-${Date.now()}${path.extname(
+      file.originalname
+    )}`;
+    cb(null, uniqueName);
+  },
+});
+
+// Post Storage
+const postStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const folder = "uploads/posts";
+    createFolder(folder);
+    cb(null, folder);
   },
 
   filename: (req, file, cb) => {
-    const uniqueName =
-      Date.now() + path.extname(file.originalname);
+    const uniqueName = `post-${Date.now()}${path.extname(
+      file.originalname
+    )}`;
 
     cb(null, uniqueName);
   },
-
 });
 
 
 const fileFilter = (req, file, cb) => {
-
   const allowedTypes = [
     "image/jpeg",
     "image/png",
     "image/webp",
   ];
-
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
     cb(new Error("Only image files are allowed"));
   }
-
 };
 
 
-const upload = multer({
-  storage,
+// Avatar Upload
+export const uploadAvatar = multer({
+  storage: avatarStorage,
   fileFilter,
   limits: {
     fileSize: 5 * 1024 * 1024,
   },
 });
 
-
-export default upload;
+// Post Upload
+export const uploadPost = multer({
+  storage: postStorage,
+  fileFilter,
+  limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
+});

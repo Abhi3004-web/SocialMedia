@@ -495,7 +495,6 @@ export const blockUser = async (userId, targetUserId) => {
   }
 
   const user = await User.findById(userId);
-  console.log(user);
   if (!user) {
     throw new Error("User not found");
   }
@@ -759,7 +758,7 @@ export const switchAccount = async ({
   currentUserId,
   targetUserId,
 }) => {
-  console.log(currentUserId, targetUserId);
+ 
   const currentUser = await User.findById(
     currentUserId
   );
@@ -767,14 +766,12 @@ export const switchAccount = async ({
   if (!currentUser) {
     throw new Error("User not found");
   }
-  console.log("Current User:", currentUserId);
-  console.log("Target User:", targetUserId);
-  console.log("Linked Accounts:", currentUser.linkedAccounts);
+  
   const isLinked =
     currentUser.linkedAccounts.some(
       (id) => id.toString() === targetUserId
     );
-  console.log(isLinked);
+  
   if (!isLinked) {
     throw new Error(
       "Account is not linked"

@@ -21,7 +21,7 @@ import {
   switchAccountController
 } from "../controllers/user.controller.js";
 import { authenticateUser } from "../middleware/auth.middleware.js";
-import upload from "../middleware/upload.middleware.js";
+import { uploadAvatar } from "../middleware/upload.middleware.js";
 
 const router = express.Router();
 
@@ -42,7 +42,7 @@ router.put("/profile", authenticateUser, updateProfileController);
 router.post("/follow/:userId", authenticateUser, followUserController);
 router.post("/unfollow/:userId", authenticateUser, unfollowUserController);
 
-router.put("/avatar", authenticateUser, upload.single("avatar"), uploadAvatarController);
+router.put("/avatar", authenticateUser, uploadAvatar.single("avatar"), uploadAvatarController);
 router.patch("/block/:targetUserId", authenticateUser, blockUserController);
 router.post("/unblock/:userId", authenticateUser, unblockUserController);
 router.delete("/delete-account", authenticateUser, deleteAccountController);

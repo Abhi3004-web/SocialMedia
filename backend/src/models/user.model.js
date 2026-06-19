@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Post from "./post.model.js";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -83,6 +84,12 @@ const UserSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    savedPosts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
   },
   {
     timestamps: true,
@@ -90,8 +97,8 @@ const UserSchema = new mongoose.Schema(
   },
 );
 
-UserSchema.index({ email: 1 });
-UserSchema.index({ username: 1 });
+// UserSchema.index({ email: 1 });
+// UserSchema.index({ username: 1 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
 

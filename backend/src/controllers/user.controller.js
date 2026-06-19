@@ -226,8 +226,6 @@ export const currentUserController = async (req, res) => {
 
 export const searchUsersController = async (req, res) => {
   try {
-    console.log("Query:", req.query);
-    console.log("User:", req.user);
     const { query } = req.query;
 
     const result = await searchUsers({
@@ -374,7 +372,6 @@ export const blockUserController = async (req, res) => {
   try {
     const userId = req.user.userId;
     const { targetUserId } = req.params;
-    console.log(userId, targetUserId);
 
     const user = await blockUser(
       userId,
