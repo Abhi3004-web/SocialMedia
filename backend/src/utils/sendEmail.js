@@ -1,8 +1,8 @@
 import { transporter } from "../config/mail.config.js";
 export const sendVerificationEmail = async (email, token) => {
   const verificationLink =
-
-    `http://localhost:5000/api/users/verify-email/${token}`;
+    `http://localhost:5173/verify-email?token=${token}`;
+  //`http://localhost:5000/api/users/verify-email/${token}`;
 
   transporter.verify((error, success) => {
     if (error) {

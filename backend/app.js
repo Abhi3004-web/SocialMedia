@@ -3,12 +3,20 @@ dotenv.config();
 import path from "path";
 import { fileURLToPath } from "url";
 import express from "express";
+import cors from "cors";
 import multer from "multer";
 import { connectDB } from "./src/config/db.js";
 import userRoutes from "./src/routes/user.routes.js";
 import postRoutes from "./src/routes/post.routes.js";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use("/api/users", userRoutes);
@@ -20,9 +28,9 @@ app.get("/", (req, res) => {
   res.send("Hello first Introduction");
 });
 
-app.use("/uploads",express.static(
-    path.join(__dirname, "uploads")
-  )
+app.use("/uploads", express.static(
+  path.join(__dirname, "uploads")
+)
 );
 
 app.use((error, req, res, next) => {

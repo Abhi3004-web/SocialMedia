@@ -39,13 +39,12 @@ const getVerificationToken = (req) => {
 
 export const registerUser = async (req, res) => {
   try {
-    const { username, email, password, bio } = req.body;
+    const { username, email, password } = req.body;
 
     const result = await createUser({
       username,
       email,
       password,
-      bio,
     });
 
     return res.status(201).json({
