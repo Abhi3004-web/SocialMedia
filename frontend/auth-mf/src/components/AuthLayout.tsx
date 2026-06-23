@@ -1,21 +1,28 @@
 import { useState } from "react";
 import LoginForm from "./LoginForm";
-import Registration from "./Registration";
+import RegistrationForm from "./RegistrationForm";
+import { useNavigate } from "react-router-dom";
 
-export default function AuthLayout() {
-  const [isSignUp, setIsSignUp] = useState(true);
-
+interface AuthLayoutProps {
+  defaultMode?: "login" | "signup";
+}
+export default function AuthLayout({ defaultMode = "signup",
+}: AuthLayoutProps) {
+  const [isSignUp, setIsSignUp] = useState(
+    defaultMode === "signup"
+  );
+  const navigate = useNavigate();
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#C9385F] px-4 py-8 sm:px-6">
       {/* Decorative Shapes */}
       <div
         aria-hidden="true"
-        className="absolute top-0 left-0 h-40 w-40 rounded-full bg-linear-to-br from-[#C9385F] via-[#f34a71] to-[#fb415d] md:h-72 md:w-72"
+        className="absolute top-0 left-0 h-40 w-40 rounded-full bg-gradient-to-br from-[#C9385F] via-[#f34a71] to-[#fb415d] md:h-72 md:w-72"
       />
 
       <div
         aria-hidden="true"
-        className="absolute bottom-0 right-0 h-52 w-52 rounded-full bg-linear-to-br from-[#C9385F] via-[#f34a71] to-[#fb415d] md:h-96 md:w-96"
+        className="absolute bottom-0 right-0 h-52 w-52 rounded-full bg-gradient-to-br from-[#C9385F] via-[#f34a71] to-[#fb415d] md:h-96 md:w-96"
       />
 
       <section className="relative flex w-full max-w-5xl flex-col overflow-hidden rounded-md bg-white shadow-2xl md:flex-row">
@@ -33,7 +40,8 @@ export default function AuthLayout() {
             type="button"
             aria-label={`Switch to ${isSignUp ? "Login" : "Sign Up"
               } form`}
-            onClick={() => setIsSignUp(!isSignUp)}
+            onClick={() =>
+              navigate(isSignUp ? "/login" : "/register")}
             className="absolute
               -bottom-7
               left-1/2
@@ -93,7 +101,7 @@ export default function AuthLayout() {
           </nav>
 
           <article>
-            {isSignUp ? <Registration /> : <LoginForm />}
+            {isSignUp ? <RegistrationForm /> : <LoginForm />}
           </article>
         </section>
       </section>

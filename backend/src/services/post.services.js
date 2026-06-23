@@ -305,6 +305,6 @@ export const sharePost = async (postId) => {
   return {
     postId: post._id,
     shareCount: post.shareCount,
-    shareUrl: `${process.env.FRONTEND_URL}/posts/${post._id}`,
+    shareUrl: `${process.env.Auth_URL}/posts/${post._id}`,
   };
 };
