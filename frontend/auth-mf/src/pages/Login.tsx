@@ -1,8 +1,15 @@
 import React from 'react'
 import AuthLayout from "../components/AuthLayout";
-
-const Login = () => {
-    return <AuthLayout defaultMode="login" />;
+interface LoginProps {
+    onLogin?: (token: string) => void;
 }
+const Login = ({ onLogin }: LoginProps) => {
+    return (
+        <AuthLayout
+            defaultMode="login"
+            onLogin={onLogin}
+        />
+    );
+};
 
-export default Login
+export default Login;

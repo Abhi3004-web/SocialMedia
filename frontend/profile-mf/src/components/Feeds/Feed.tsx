@@ -1,0 +1,68 @@
+import { Box, Typography } from "@mui/material";
+import PostCard from "./PostCard";
+import CreatePost from "./CreatePost";
+import {
+    useAppDispatch,
+    useAppSelector,
+} from "../../redux/hooks";
+import { fetchPosts } from "../../redux/slices/postSlice";
+import Loader from "../Common/Loader";
+import { useEffect } from "react";
+
+
+
+export default function Feed() {
+    const dispatch =
+        useAppDispatch();
+
+    const {
+        posts,
+        loading,
+    } = useAppSelector(
+        (state) => state.posts
+    );
+
+    console.log("Posts State:", posts);
+    console.log("Loading:", loading);
+
+    useEffect(() => {
+        dispatch(fetchPosts());
+    }, [dispatch]);
+
+    if (loading) {
+        return <Loader />;
+    }
+    return (
+
+
+        <Box sx={{ mt: 4 }}>
+            <Box sx={{ mt: 6 }}>
+                <CreatePost />
+            </Box>
+            <Typography
+                variant="h5"
+                sx={{
+                    fontWeight: 700,
+                    mb: 3,
+                    color: "#222",
+                    textAlign: "left",
+                }}
+            >
+                Feed
+            </Typography>
+
+            <Box
+                sx={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr",
+                    gap: "24px",
+
+                }}
+            >
+                {posts.map((post) => (
+                    <PostCard key={post._id} post={post} />
+                ))}
+            </Box>
+        </Box>
+    );
+}
