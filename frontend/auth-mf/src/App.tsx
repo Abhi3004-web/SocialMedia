@@ -1,20 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import './App.css'
-import AuthLayout from './components/AuthLayout'
-import VerifyEmail from "./validation/VerifyEmail";
-
+import Login from "./pages/Login";
+import Registration from "./pages/Registration";
 
 function App() {
-
-
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<AuthLayout />} />
-        <Route path="/verify-email" element={<VerifyEmail />} />
-      </Routes>
-    </>
-  )
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Registration />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
