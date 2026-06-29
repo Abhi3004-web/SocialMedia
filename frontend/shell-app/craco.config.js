@@ -1,6 +1,5 @@
-import deps from "./package.json";
-const ModuleFederationPlugin =
-    require("webpack").container.ModuleFederationPlugin;
+const deps = require("./package.json").dependencies;
+const { ModuleFederationPlugin } = require("webpack").container;
 
 module.exports = {
     webpack: {
@@ -29,25 +28,25 @@ module.exports = {
                     shared: {
                         react: {
                             singleton: true,
-                            requiredVersion: deps.dependencies["react"],
+                            requiredVersion: deps["react"],
                         },
                         "react-dom": {
                             singleton: true,
-                            requiredVersion: deps.dependencies["react-dom"],
+                            requiredVersion: deps["react-dom"],
                         },
                         "react-router-dom": {
                             singleton: true,
-                            requiredVersion: deps.dependencies["react-router-dom"],
+                            requiredVersion: deps["react-router-dom"],
                         },
 
                         "react-redux": {
                             singleton: true,
-                            requiredVersion: deps.dependencies["react-redux"],
+                            requiredVersion: deps["react-redux"],
                         },
 
                         "@reduxjs/toolkit": {
                             singleton: true,
-                            requiredVersion: deps.dependencies["@reduxjs/toolkit"],
+                            requiredVersion: deps["@reduxjs/toolkit"],
                         },
                     }
                 })

@@ -22,6 +22,7 @@ module.exports = {
                     exposes: {
                         "./Login": "./src/pages/Login",
                         "./Registration": "./src/pages/Registration",
+                        "./VerifyEmail": "./src/pages/VerifyEmail",
                     },
 
                     shared: {

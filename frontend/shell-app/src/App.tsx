@@ -3,7 +3,7 @@ import React, { Suspense, useState, } from "react";
 import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
 
 const Login = React.lazy(() => import("authmf/Login"));
-
+const VerifyEmail = React.lazy(() => import("authmf/VerifyEmail"));
 const Dashboard = React.lazy(() => import("profilemf/Dashboard"));
 
 function App() {
@@ -30,7 +30,11 @@ function App() {
               )
             }
           />
-
+          {/* Email Verification */}
+          <Route
+            path="/verify-email"
+            element={<VerifyEmail />}
+          />
           <Route
             path="/dashboard"
             element={
