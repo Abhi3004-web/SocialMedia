@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import PostCard from "./PostCard";
-import CreatePost from "./CreatePost";
 import {
     useAppDispatch,
     useAppSelector,
@@ -12,6 +11,7 @@ import { useEffect } from "react";
 
 
 export default function Feed() {
+
     const dispatch =
         useAppDispatch();
 
@@ -36,9 +36,6 @@ export default function Feed() {
 
 
         <Box sx={{ mt: 4 }}>
-            <Box sx={{ mt: 6 }}>
-                <CreatePost />
-            </Box>
             <Typography
                 variant="h5"
                 sx={{

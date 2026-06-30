@@ -6,13 +6,15 @@ import { store } from "../../redux/store";
 
 export default function Dashboard() {
     return (
-        <DashboardLayout>
-            <div className="space-y-6">
-                <Stories />
-                <Provider store={store}>
+        <Provider store={store}>
+            <DashboardLayout>
+                <div className="space-y-6">
+                    <Stories />
+
                     <Feed />
-                </Provider>
-            </div>
-        </DashboardLayout>
+
+                </div>
+            </DashboardLayout>
+        </Provider>
     );
 }

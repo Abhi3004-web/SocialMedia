@@ -19,16 +19,18 @@ export const postService = {
         return response.data.data.posts;
     },
 
-    async createPost(
-        formData: FormData
-    ): Promise<Post> {
+    async createPost(formData: FormData): Promise<Post> {
         const response =
-            await postApi.post(
-                "/create",
-                formData
+            await postApi.post("/createPost",
+                formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
+                }
+            },
             );
 
-        return response.data;
+        return response.data.data;
     },
 
     async deletePost(

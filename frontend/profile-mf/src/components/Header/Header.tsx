@@ -11,8 +11,12 @@ import {
     Paper,
     Button,
 } from "@mui/material";
+import CreatePost from "../Feeds/CreatePost";
+import AddIcon from "@mui/icons-material/Add";
+import { useState } from "react";
 
 export default function Header() {
+    const [openCreatePost, setOpenCreatePost] = useState(false);
     return (
         <Box
             sx={{
@@ -79,10 +83,22 @@ export default function Header() {
                             background:
                                 "linear-gradient(90deg,#ff7a00,#ff0080)",
                         },
-                    }}
+                        variant: "contained"
+                    }
+
+                    }
+
+                    startIcon={<AddIcon />}
+                    onClick={() => setOpenCreatePost(true)}
                 >
-                    + Create a post
+                    Create a post
                 </Button>
+
+
+                <CreatePost
+                    open={openCreatePost}
+                    onClose={() => setOpenCreatePost(false)}
+                />
             </Box>
         </Box>
     );

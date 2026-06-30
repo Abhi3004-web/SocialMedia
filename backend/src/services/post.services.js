@@ -93,7 +93,14 @@ export const createPost = async ({
     content: content || ""
   });
 
-  return post;
+  // Fetch the newly created post with author populated
+  const populatedPost = await Post.findById(post._id)
+    .populate({
+      path: "author",
+      select: "_id username avatar",
+    });
+
+  return populatedPost;
 };
 
 export const getUserPosts = async (userId) => {
