@@ -22,9 +22,6 @@ export default function Feed() {
         (state) => state.posts
     );
 
-    console.log("Posts State:", posts);
-    console.log("Loading:", loading);
-
     useEffect(() => {
         dispatch(fetchPosts());
     }, [dispatch]);

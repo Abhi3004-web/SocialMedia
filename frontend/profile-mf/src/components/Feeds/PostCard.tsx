@@ -1,3 +1,4 @@
+import React from "react";
 import {
     Avatar,
     Box,
@@ -14,7 +15,7 @@ import {
     MoreHoriz,
 } from "@mui/icons-material";
 
-export default function PostCard({ post }: any) {
+function PostCard({ post }: any) {
     return (
         <Card
             sx={{
@@ -136,3 +137,5 @@ export default function PostCard({ post }: any) {
         </Card>
     );
 }
+
+export default React.memo(PostCard);
