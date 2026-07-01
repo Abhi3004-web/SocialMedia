@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL } from "../utils/constants";
+import { API_BASE_URL } from "@social/shared";
 import { Post } from "../types/profile";
 
 const postApi = axios.create({
@@ -33,17 +33,16 @@ export const postService = {
         return response.data.data;
     },
 
-    async deletePost(
-        id: string
-    ): Promise<void> {
+    async deletePost(id: string): Promise<void> {
         await postApi.delete(`/${id}`);
     },
 
-    async likePost(
-        id: string
-    ): Promise<void> {
-        await postApi.post(
-            `/${id}/like`
-        );
+    async likePost(id: string): Promise<Post> {
+        const response = await postApi.post(`/${id}/like`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data.data;
     },
 };

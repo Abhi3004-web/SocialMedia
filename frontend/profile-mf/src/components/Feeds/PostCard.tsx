@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Avatar,
     Box,
@@ -14,8 +14,33 @@ import {
     BookmarkBorder,
     MoreHoriz,
 } from "@mui/icons-material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { likePostThunk } from "../../redux/slices/postSlice";
+import { fetchProfile } from "../../redux/slices/profileSlice"
 
 function PostCard({ post }: any) {
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(fetchProfile());
+    }, [dispatch])
+    const profileState = useAppSelector(state => state.profile);
+
+    console.log(profileState);
+    const currentUserId = useAppSelector(
+        state => state.profile.profile?._id
+    );
+
+    const liked = post.likes.includes(currentUserId);
+
+    console.log("Current User:", currentUserId);
+    console.log("Likes:", post.likes);
+    console.log("Liked:", post.likes.includes(currentUserId));
+
+    const handleLike = () => {
+        dispatch(likePostThunk(post._id));
+    };
+
     return (
         <Card
             sx={{
@@ -95,8 +120,12 @@ function PostCard({ post }: any) {
                 }}
             >
                 <Box>
-                    <IconButton size="small">
-                        <FavoriteBorder />
+                    <IconButton onClick={handleLike}>
+                        {liked ? (
+                            <FavoriteIcon color="error" />
+                        ) : (
+                            <FavoriteBorder />
+                        )}
                     </IconButton>
 
                     <IconButton size="small">
@@ -122,7 +151,7 @@ function PostCard({ post }: any) {
                         mb: 0.5,
                     }}
                 >
-                    Liked by Andrew and 360 others
+                    {post.likes.length} Likes
                 </Typography>
 
                 <Typography

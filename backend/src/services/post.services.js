@@ -208,7 +208,7 @@ export const likePost = async (postId, userId) => {
   if (!post) {
     throw new Error("Post not found");
   }
-
+  console.log("post", post);
   return post;
 };
 

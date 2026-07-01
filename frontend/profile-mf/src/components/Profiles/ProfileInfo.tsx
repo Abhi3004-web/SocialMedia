@@ -4,14 +4,14 @@ interface ProfileInfoProps {
     fullName: string;
     bio: string;
     location: string;
-    website: string;
+    //website: string;
 }
 
 export default function ProfileInfo({
     fullName,
     bio,
     location,
-    website,
+    // website,
 }: ProfileInfoProps) {
     return (
         <div className="py-4">
@@ -27,14 +27,14 @@ export default function ProfileInfo({
                 📍 {location}
             </p>
 
-            <a
+            {/* <a
                 href={website}
                 target="_blank"
                 rel="noreferrer"
                 className="text-blue-500 hover:underline"
             >
                 {website}
-            </a>
+            </a> */}
         </div>
     );
 }

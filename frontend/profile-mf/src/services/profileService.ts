@@ -1,17 +1,22 @@
 import axios from "axios";
-import { API_BASE_URL } from "../utils/constants";
+import { API_BASE_URL } from "@social/shared";
 import { UserProfile } from "../types/profile";
 
 const profileApi = axios.create({
-  baseURL: `${API_BASE_URL}/profile`,
+  baseURL: `${API_BASE_URL}/users`,
 });
+const token = localStorage.getItem("token");
 
 export const profileService = {
   async getProfile(): Promise<UserProfile> {
     const response =
-      await profileApi.get("/me");
+      await profileApi.get("/current-user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    return response.data;
+    return response.data.data.user;
   },
 
   async updateProfile(

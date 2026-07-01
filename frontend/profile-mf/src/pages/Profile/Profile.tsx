@@ -11,6 +11,7 @@ import {
 
 import { fetchProfile } from "../../redux/slices/profileSlice";
 import Loader from "../../components/Common/Loader";
+import { fetchPosts } from "../../redux/slices/postSlice";
 
 
 export default function Profile() {
@@ -23,16 +24,18 @@ export default function Profile() {
     } = useAppSelector(
         (state) => state.profile
     );
+    const { posts } = useAppSelector((state) => state.posts);
 
     useEffect(() => {
         dispatch(fetchProfile());
+        dispatch(fetchPosts());
     }, [dispatch]);
 
     if (loading) {
         return <Loader />;
     }
 
-    if (!profile) {
+    if (!profile && !posts) {
         return null;
     }
 
@@ -41,7 +44,7 @@ export default function Profile() {
             <div className="max-w-5xl mx-auto bg-white rounded-xl shadow p-6">
                 <ProfileHeader
                     profileImage={
-                        profile?.profilePicture || ""
+                        profile?.avatar?.url || ""
                     }
                     username={
                         profile?.username || "Guest"
@@ -49,7 +52,7 @@ export default function Profile() {
                 />
 
                 <ProfileStats
-                    posts={profile?.posts || 0}
+                    posts={posts?.length || 0}
                     followers={
                         profile?.followers || 0
                     }
@@ -65,9 +68,9 @@ export default function Profile() {
                     location={
                         profile?.location || ""
                     }
-                    website={
-                        profile?.website || ""
-                    }
+                    // website={
+                    //     profile?.website || ""
+                    // }
                 />
             </div>
         </DashboardLayout>

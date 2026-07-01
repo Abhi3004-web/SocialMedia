@@ -1,30 +1,63 @@
 export interface UserProfile {
   _id: string;
+  username: string;
   firstName: string;
   lastName: string;
-  username: string;
   email: string;
   bio: string;
-  profilePicture: string;
+  avatar: {
+    url: string;
+    publicId: string;
+  };
+  followers: string[];
+  following: string[];
+  blockedUsers?: string[];
+  isVerified: boolean;
+  role: "USER" | "ADMIN";
+  isActive: boolean;
   location: string;
-  website: string;
-  followers: number;
-  following: number;
-  posts: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface User {
+  _id: string;
+  username: string;
+  avatar: {
+    url: string;
+    publicId: string;
+  };
+}
+
+export interface Media {
+  url: string;
+  publicId: string;
+  mediaType: string;
+}
+
+export interface Comment {
+  _id: string;
+  user: string;
+  text: string;
   createdAt: string;
 }
 
 export interface Post {
   _id: string;
-  userId: string;
-  username: string;
-  userProfileImage: string;
-  imageUrl: string;
+  author: User;
+  content: string;
   caption: string;
-  likes: number;
-  comments: number;
-  isLiked: boolean;
+  media: Media[];
+  likes: string[];
+  comments: Comment[];
+  tags: string[];
+  location: string;
+  visibility: "PUBLIC" | "FOLLOWERS" | "PRIVATE";
+  repostOf: string | null;
+  repostCount: number;
+  shareCount: number;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface Story {

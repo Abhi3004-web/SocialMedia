@@ -1,5 +1,4 @@
-import { STORAGE_KEYS } from "../utils/constants";
-
+import { STORAGE_KEYS } from "@social/shared";
 export const storageService = {
     saveToken(token: string) {
         localStorage.setItem(

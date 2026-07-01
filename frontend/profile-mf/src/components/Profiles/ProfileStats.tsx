@@ -2,8 +2,8 @@
 
 interface ProfileStatsProps {
     posts: number;
-    followers: number;
-    following: number;
+    followers: number | string[];
+    following: number | string[];
 }
 
 export default function ProfileStats({

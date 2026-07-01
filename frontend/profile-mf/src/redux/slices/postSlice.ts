@@ -40,6 +40,19 @@ export const createPostThunk = createAsyncThunk("post/create",
     }
 );
 
+export const likePostThunk = createAsyncThunk(
+    "posts/like",
+    async (postId: string, { rejectWithValue }) => {
+        try {
+            return await postService.likePost(postId);
+        } catch (err: any) {
+            return rejectWithValue(
+                err.response?.data?.message || "Failed to like post"
+            );
+        }
+    }
+);
+
 const postSlice = createSlice({
     name: "posts",
     initialState,
@@ -84,6 +97,15 @@ const postSlice = createSlice({
                 state.loading = false;
                 state.success = false;
                 state.error = action.payload as string;
+            })
+            .addCase(likePostThunk.fulfilled, (state, action) => {
+                const index = state.posts.findIndex(
+                    p => p._id === action.payload._id
+                );
+
+                if (index !== -1) {
+                    state.posts[index].likes = action.payload.likes;
+                }
             });
     },
 });

@@ -137,7 +137,8 @@ export const deletePostController = async (req, res, next) => {
 export const likePostController = async (req, res, next) => {
     try {
         const { postId } = req.params;
-
+  console.log("userId:",   req.user.userId);
+    console.log("PostId:", postId);
         const post = await likePost(
             postId,
             req.user.userId
