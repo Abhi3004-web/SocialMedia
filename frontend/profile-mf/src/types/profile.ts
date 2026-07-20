@@ -4,6 +4,9 @@ export interface UserProfile {
   firstName: string;
   lastName: string;
   email: string;
+  age?: number;
+  gender?: string;
+  occupation?: string;
   bio: string;
   avatar: {
     url: string;
@@ -64,4 +67,13 @@ export interface Story {
   _id: string;
   username: string;
   imageUrl: string;
+  mediaType?: "IMAGE" | "VIDEO";
+  avatarUrl?: string;
+  relation?: "follower" | "following" | "you";
+  status?: "live" | "online" | "recent" | "offline";
+  lastActiveAt?: string;
+  createdAt?: string;
+  expiresAt?: string;
+  canDelete?: boolean;
+  caption?: string;
 }

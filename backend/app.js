@@ -8,6 +8,7 @@ import multer from "multer";
 import { connectDB } from "./src/config/db.js";
 import userRoutes from "./src/routes/user.routes.js";
 import postRoutes from "./src/routes/post.routes.js";
+import storyRoutes from "./src/routes/story.routes.js";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(
 app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/stories", storyRoutes);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

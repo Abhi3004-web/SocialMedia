@@ -18,6 +18,35 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
+    firstName: {
+      type: String,
+      trim: true,
+      default: "",
+      maxlength: 50,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      default: "",
+      maxlength: 50,
+    },
+    age: {
+      type: Number,
+      min: 0,
+      max: 120,
+    },
+    gender: {
+      type: String,
+      trim: true,
+      default: "",
+      maxlength: 30,
+    },
+    occupation: {
+      type: String,
+      trim: true,
+      default: "",
+      maxlength: 80,
+    },
     password: {
       type: String,
       required: true,
@@ -38,6 +67,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       maxlength: 150,
       default: "",
+    },
+    location: {
+      type: String,
+      trim: true,
+      default: "",
+      maxlength: 80,
     },
     isVerified: {
       type: Boolean,

@@ -253,7 +253,13 @@ export const updateProfileController = async (req, res) => {
     const result = await updateProfile({
       userId: req.user.userId,
       username: req.body.username,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      age: req.body.age,
+      gender: req.body.gender,
+      occupation: req.body.occupation,
       bio: req.body.bio,
+      location: req.body.location,
       avatar: req.body.avatar,
     });
 

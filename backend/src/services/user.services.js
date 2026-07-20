@@ -288,7 +288,13 @@ export const searchUsers = async ({
 export const updateProfile = async ({
   userId,
   username,
+  firstName,
+  lastName,
+  age,
+  gender,
+  occupation,
   bio,
+  location,
   avatar,
 }) => {
 
@@ -320,8 +326,32 @@ export const updateProfile = async ({
 
 
   // Update optional fields
+  if (firstName !== undefined) {
+    user.firstName = firstName.trim();
+  }
+
+  if (lastName !== undefined) {
+    user.lastName = lastName.trim();
+  }
+
+  if (age !== undefined) {
+    user.age = age === "" ? undefined : Number(age);
+  }
+
+  if (gender !== undefined) {
+    user.gender = gender.trim();
+  }
+
+  if (occupation !== undefined) {
+    user.occupation = occupation.trim();
+  }
+
   if (bio !== undefined) {
     user.bio = bio.trim();
+  }
+
+  if (location !== undefined) {
+    user.location = location.trim();
   }
 
 
@@ -803,4 +833,3 @@ export const switchAccount = async ({
     token,
   };
 };
-

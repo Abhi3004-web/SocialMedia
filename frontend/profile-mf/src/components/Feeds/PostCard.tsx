@@ -26,16 +26,11 @@ function PostCard({ post }: any) {
     }, [dispatch])
     const profileState = useAppSelector(state => state.profile);
 
-    console.log(profileState);
     const currentUserId = useAppSelector(
         state => state.profile.profile?._id
     );
 
     const liked = post.likes.includes(currentUserId);
-
-    console.log("Current User:", currentUserId);
-    console.log("Likes:", post.likes);
-    console.log("Liked:", post.likes.includes(currentUserId));
 
     const handleLike = () => {
         dispatch(likePostThunk(post._id));

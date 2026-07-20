@@ -1,40 +1,95 @@
 // src/components/Profile/ProfileInfo.tsx
+import {
+    Box,
+    Link,
+    Typography,
+} from "@mui/material";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 interface ProfileInfoProps {
-    fullName: string;
     bio: string;
     location: string;
-    //website: string;
 }
 
 export default function ProfileInfo({
-    fullName,
     bio,
     location,
-    // website,
 }: ProfileInfoProps) {
     return (
-        <div className="py-4">
-            <h3 className="text-lg font-semibold">
-                {fullName}
-            </h3>
+        <Box
+            sx={{
+                py: {
+                    xs: 2,
+                    sm: 2,
+                },
+                px: {
+                    xs: 1,
+                    sm: 0,
+                },
+            }}
+        >
 
-            <p className="mt-2 text-gray-700">
-                {bio}
-            </p>
-
-            <p className="mt-2 text-sm text-gray-500">
-                📍 {location}
-            </p>
-
-            {/* <a
-                href={website}
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-500 hover:underline"
+            <Typography
+                variant="body1"
+                color="text.primary"
+                sx={{
+                    mt: 1.5,
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    fontSize: {
+                        xs: "0.85rem",
+                        sm: "0.85rem",
+                    },
+                }}
             >
-                {website}
-            </a> */}
-        </div>
+                {bio || "No bio available"}
+            </Typography>
+
+            <Box
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    mt: 2,
+                    color: "text.secondary",
+                    flexWrap: "wrap",
+                    gap: 0.5,
+                }}
+            >
+                <LocationOnIcon fontSize="small" />
+
+                <Typography
+                    variant="body2"
+                    sx={{
+                        fontSize: {
+                            xs: "0.85rem",
+                            sm: "0.9rem",
+                        },
+                        wordBreak: "break-word",
+                    }}
+                >
+                    {location || "Location not provided"}
+                </Typography>
+            </Box>
+
+            {/* {website && (
+    <Link
+      href={website}
+      target="_blank"
+      rel="noopener noreferrer"
+      underline="hover"
+      sx={{
+        mt: 2,
+        display: "inline-block",
+        fontSize: {
+          xs: "0.9rem",
+          sm: "1rem",
+        },
+        wordBreak: "break-all",
+      }}
+    >
+      {website}
+    </Link>
+  )} */}
+        </Box>
     );
 }

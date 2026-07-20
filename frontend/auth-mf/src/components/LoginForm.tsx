@@ -121,8 +121,6 @@ function LoginForm({ onLogin }: LoginFormProps) {
         password: data.password,
       });
 
-      console.log(result);
-
       if (result.success) {
         setIsSuccess(true);
 

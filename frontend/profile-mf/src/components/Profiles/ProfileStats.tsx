@@ -1,4 +1,9 @@
 // src/components/Profile/ProfileStats.tsx
+import {
+    Box,
+    Divider,
+    Typography,
+} from "@mui/material";
 
 interface ProfileStatsProps {
     posts: number;
@@ -6,37 +11,58 @@ interface ProfileStatsProps {
     following: number | string[];
 }
 
+
 export default function ProfileStats({
     posts,
     followers,
     following,
 }: ProfileStatsProps) {
     return (
-        <div className="flex gap-10 py-6 border-b">
-            <div>
-                <p className="text-xl font-bold">{posts}</p>
-                <span className="text-gray-500">
-                    Posts
-                </span>
-            </div>
+        <>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    mt: 4,
+                    textAlign: "center",
+                }}
+            >
+                <Box>
+                    <Typography sx={{ fontWeight: 700 }}>
+                        {posts}
+                    </Typography>
 
-            <div>
-                <p className="text-xl font-bold">
-                    {followers}
-                </p>
-                <span className="text-gray-500">
-                    Followers
-                </span>
-            </div>
-
-            <div>
-                <p className="text-xl font-bold">
-                    {following}
-                </p>
-                <span className="text-gray-500">
-                    Following
-                </span>
-            </div>
-        </div>
+                    <Typography sx={{ fontSize: 12, color: "text.secondary" }}>
+                        Posts
+                    </Typography>
+                </Box>
+                <Divider
+                    orientation="vertical"
+                    flexItem
+                    sx={{ mx: 2 }}
+                />
+                <Box>
+                    <Typography sx={{ fontWeight: 700 }}>
+                        {Array.isArray(followers) ? followers.length : followers}
+                    </Typography>
+                    <Typography sx={{ fontSize: 12, color: "text.secondary" }}>
+                        Followers
+                    </Typography>
+                </Box>
+                <Divider
+                    orientation="vertical"
+                    flexItem
+                    sx={{ mx: 2 }}
+                />
+                <Box>
+                    <Typography sx={{ fontWeight: 700 }}>
+                        {Array.isArray(following) ? following.length : following}
+                    </Typography>
+                    <Typography sx={{ fontSize: 12, color: "text.secondary" }}>
+                        Following
+                    </Typography>
+                </Box>
+            </Box>
+        </>
     );
 }

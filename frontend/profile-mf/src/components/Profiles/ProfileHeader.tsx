@@ -1,31 +1,69 @@
 // src/components/Profile/ProfileHeader.tsx
+import {
+    Avatar,
+    Box,
+    Button,
+    Typography,
+} from "@mui/material";
 
 interface ProfileHeaderProps {
     profileImage: string;
+    fullName: string;
     username: string;
+    onEditProfile?: () => void;
+    onViewProfile?: () => void;
 }
 
 export default function ProfileHeader({
     profileImage,
+    fullName,
     username,
+    onEditProfile,
+    onViewProfile,
 }: ProfileHeaderProps) {
+    const imageUrl = profileImage
+        ? `http://localhost:5000/${profileImage.replace(/\\/g, "/")}`
+        : "";
     return (
-        <div className="flex items-center gap-6 p-6 bg-white rounded-xl shadow-sm">
-            <img
-                src={profileImage}
+        <Box sx={{
+            textAlign: "center",
+        }}>
+            <Avatar
+                src={imageUrl}
                 alt={username}
-                className="w-28 h-28 rounded-full object-cover border-4 border-pink-500"
+                onClick={onViewProfile}
+                sx={{
+                    mx: "auto",
+                    width: 90,
+                    height: 90,
+                    border: "2px solid",
+                    borderColor: "#C9385F", // Your app's theme color
+                    cursor: "pointer",
+                }}
             />
 
-            <div>
-                <h2 className="text-2xl font-bold">
+            <Box>
+                <Typography sx={{ mt: 1, fontWeight: 700 }}>
+                    {fullName}
+                </Typography>
+                <Typography sx={{ color: "gray", fontSize: 13 }}>
                     {username}
-                </h2>
+                </Typography>
 
-                <button className="mt-3 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                <Button
+                    variant="contained"
+                    onClick={onEditProfile}
+                    sx={{
+                        mt: 1,
+                        bgcolor: "#C9385F",
+                        "&:hover": {
+                            bgcolor: "#B12F52",
+                        },
+                    }}
+                >
                     Edit Profile
-                </button>
-            </div>
-        </div>
+                </Button>
+            </Box>
+        </Box>
     );
 }

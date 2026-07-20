@@ -1,4 +1,4 @@
-import React, { Suspense, useState, } from "react";
+import React, { Suspense, useEffect, useState, } from "react";
 
 import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
 
@@ -8,6 +8,20 @@ const Dashboard = React.lazy(() => import("profilemf/Dashboard"));
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem("token") || null);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
+  useEffect(() => {
+    window.addEventListener("auth:logout", handleLogout);
+
+    return () => {
+      window.removeEventListener("auth:logout", handleLogout);
+    };
+  }, []);
 
   return (
     <BrowserRouter>
@@ -39,7 +53,7 @@ function App() {
             path="/dashboard"
             element={
               user ? (
-                <Dashboard />
+                <Dashboard onLogout={handleLogout} />
               ) : (
                 <Navigate to="/" />
               )

@@ -40,17 +40,35 @@ const postStorage = multer.diskStorage({
   },
 });
 
+const storyStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const folder = "uploads/stories";
+    createFolder(folder);
+    cb(null, folder);
+  },
+
+  filename: (req, file, cb) => {
+    const uniqueName = `story-${Date.now()}${path.extname(
+      file.originalname
+    )}`;
+
+    cb(null, uniqueName);
+  },
+});
+
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = [
     "image/jpeg",
     "image/png",
     "image/webp",
+    "video/mp4",
+    "video/webm",
   ];
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Only image files are allowed"));
+    cb(new Error("Only image or video files are allowed"));
   }
 };
 
@@ -70,5 +88,13 @@ export const uploadPost = multer({
   fileFilter,
   limits: {
     fileSize: 10 * 1024 * 1024,
+  },
+});
+
+export const uploadStory = multer({
+  storage: storyStorage,
+  fileFilter,
+  limits: {
+    fileSize: 25 * 1024 * 1024,
   },
 });

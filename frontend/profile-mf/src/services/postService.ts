@@ -1,48 +1,72 @@
 import axios from "axios";
 import { API_BASE_URL } from "@social/shared";
 import { Post } from "../types/profile";
+import {
+    getAuthHeaders,
+    handleAuthError,
+} from "./authService";
 
 const postApi = axios.create({
     baseURL: `${API_BASE_URL}/posts`,
 });
-const token = localStorage.getItem("token");
 
 export const postService = {
     async getPosts(): Promise<Post[]> {
-        const response =
-            await postApi.get("/feed", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+        try {
+            const response =
+                await postApi.get("/feed", {
+                    headers: getAuthHeaders(),
+                });
 
-        return response.data.data.posts;
+            return response.data.data.posts;
+        } catch (error) {
+            return handleAuthError(error);
+        }
     },
 
     async createPost(formData: FormData): Promise<Post> {
-        const response =
-            await postApi.post("/createPost",
-                formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer ${token}`,
-                }
-            },
-            );
+        try {
+            const response =
+                await postApi.post(
+                    "/createPost",
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            ...getAuthHeaders(),
+                        },
+                    }
+                );
 
-        return response.data.data;
+            return response.data.data;
+        } catch (error) {
+            return handleAuthError(error);
+        }
     },
 
     async deletePost(id: string): Promise<void> {
-        await postApi.delete(`/${id}`);
+        try {
+            await postApi.delete(`/${id}`, {
+                headers: getAuthHeaders(),
+            });
+        } catch (error) {
+            return handleAuthError(error);
+        }
     },
 
     async likePost(id: string): Promise<Post> {
-        const response = await postApi.post(`/${id}/like`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        return response.data.data;
+        try {
+            const response = await postApi.post(
+                `/${id}/like`,
+                {},
+                {
+                    headers: getAuthHeaders(),
+                }
+            );
+
+            return response.data.data;
+        } catch (error) {
+            return handleAuthError(error);
+        }
     },
 };

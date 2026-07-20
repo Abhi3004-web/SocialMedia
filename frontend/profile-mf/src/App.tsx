@@ -3,11 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import ProfileRoutes from "./routes/ProfileRoutes";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <ProfileRoutes />
-    </BrowserRouter>
-  );
+  return <ProfileRoutes />;
 }
 
 export default App;

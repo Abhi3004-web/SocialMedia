@@ -2,13 +2,16 @@ import { ReactNode } from "react";
 import Header from "../components/Header/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Box from "@mui/material/Box";
+import Profile from "../pages/Profile/Profile";
 
 interface DashboardLayoutProps {
     children: ReactNode;
+    onLogout?: () => void;
 }
 
 export default function DashboardLayout({
     children,
+    onLogout,
 }: DashboardLayoutProps) {
     return (
         <div className="min-h-screen bg-gray-100">
@@ -18,7 +21,8 @@ export default function DashboardLayout({
                     height: "100vh",
                 }}
             >
-                <Sidebar />
+                {/* <Sidebar /> */}
+                <Profile onLogout={onLogout} />
 
                 <Box
                     sx={{
@@ -29,7 +33,6 @@ export default function DashboardLayout({
                     }}
                 >
                     <Header />
-
                     {children}
                 </Box>
             </div>
